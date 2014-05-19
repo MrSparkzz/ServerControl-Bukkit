@@ -1,0 +1,75 @@
+name: ServerControl
+version: 2
+main: net.sparkzz.servercontrol.Main
+depend: [SparkzzCore]
+author: MrSparkzz
+description: Take control of your server!
+
+commands:
+    adminsonly:
+        description: Only admins can join
+        aliases: [ao]
+    broadcast:
+        description: Broadcast a message to the server.
+    gamemode:
+        description: Change yours or another's GameMode.
+        aliases: [gm]
+    invsee:
+        description: View or modify a player's inventory.
+    message:
+        description: Private message a friend
+        aliases: [msg]
+    motd:
+        description: View, broadcast or change the motd.
+    swear:
+        description: Add or remove swears.
+    whisper:
+        description: Whisper to a friend.
+    world:
+        description: Delete, Unload or Copy a world.
+
+permissions:
+    server.broadcast:
+        default: op
+    server.gamemode.self:
+        description: set your own gamemode
+        default: op
+    server.gamemode.others:
+        description: set someone's gamemode
+        default: op
+    server.invsee.peek:
+        description: look at someone's inventory.
+        default: true
+    server.invsee.preventmodify:
+        description: stop a player from modifying your inventory.
+        default: op
+    server.invsee.modify:
+        description: modify a player's inventory.
+        default: op
+    server.motd.broadcast:
+        description: broadcast the motd
+        default: op
+    server.motd.set:
+        description: set the motd
+        default: op
+    server.motd.view:
+        description: view the motd
+        default: true
+    server.swear.add:
+        description: add a swear
+        default: true
+    server.swear.disable:
+        description: disable swear protection
+        default: op
+    server.swear.enable:
+        description: enable swear protection
+        default: op
+    server.swear.reload:
+        description: reload swear list
+        default: op
+    server.swear.remove:
+        description: remove a swear
+        default: op
+    server.whisper:
+        description: whisper to a friend
+        default: true

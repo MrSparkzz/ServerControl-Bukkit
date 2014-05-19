@@ -1,0 +1,19 @@
+messages:
+    motd: '&2Welcome to my server!'
+    join: '&6{PLAYER} &bjoined the game'
+    quit: '&6{PLAYER} &bleft the game'
+
+# Messaging Modes: 0 = DEFAULT/ 1 = REPLACE/ 2 = WARN
+# leave warn blank to send no warning message
+messaging:
+    clean:
+        enabled: false
+        mode: 0
+        warn: '&cPlease do not swear!'
+    lower:
+        enabled: false
+
+# format | swear (lowercase): replacement (case-insensitive)
+swears:
+    - poop:doo-doo
+    - ass:butt
