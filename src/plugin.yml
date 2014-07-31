@@ -1,75 +1,129 @@
 name: ServerControl
-version: 2
+version: 2.0
 main: net.sparkzz.servercontrol.Main
-depend: [SparkzzCore]
 author: MrSparkzz
 description: Take control of your server!
 
 commands:
     adminsonly:
-        description: Only admins can join
         aliases: [ao]
+        description: Only admins can join
     broadcast:
         description: Broadcast a message to the server.
     gamemode:
-        description: Change yours or another's GameMode.
         aliases: [gm]
+        description: Change yours or another's GameMode.
     invsee:
         description: View or modify a player's inventory.
     message:
-        description: Private message a friend
         aliases: [msg]
+        description: Private message a friend
     motd:
         description: View, broadcast or change the motd.
+    ops:
+        description: View all the operators of a server.
+    reply:
+        aliases: [r]
+        description: Reply to a message.
     swear:
         description: Add or remove swears.
     whisper:
+        aliases: [w]
         description: Whisper to a friend.
     world:
         description: Delete, Unload or Copy a world.
 
 permissions:
+    server.adminsonly:
+        default: op
+        description: Give access to the adminsonly command.
+    server.adminsonly.bypass:
+        default: op
+        description: Allow a player bypass the Admins Only lock.
     server.broadcast:
         default: op
+        description: Give access to the broadcast command.
+    server.gamemode:
+        default: op
+        description: Give access to the gamemode command.
     server.gamemode.self:
-        description: set your own gamemode
         default: op
+        description: Allow a player to change their own gamemode.
     server.gamemode.others:
-        description: set someone's gamemode
         default: op
-    server.invsee.peek:
-        description: look at someone's inventory.
-        default: true
-    server.invsee.preventmodify:
-        description: stop a player from modifying your inventory.
+        description: Allow a player to change another player's gamemode.
+    server.invsee:
         default: op
+        description: Give access to the invsee command.
+    server.invsee.bypass:
+        default: op
+        description: Allow a player to bypass the preventmodify permission.
     server.invsee.modify:
-        description: modify a player's inventory.
         default: op
+        description: Allow a player to modify another player's inventory.
+    server.invsee.peek:
+        default: op
+        description: Allow a player to look at another player's inventory.
+    server.invsee.preventmodify:
+        default: op
+        description: Prevent a player from having their inventory modified.
+    server.message:
+        default: true
+        description: Give access to the message command.
+    server.motd:
+        default: true
+        description: Give access to the MOTD command.
     server.motd.broadcast:
-        description: broadcast the motd
         default: op
+        description: Allow a player to broadcast the MOTD.
     server.motd.set:
-        description: set the motd
         default: op
+        description: Allow a player to set the MOTD.
+    server.motd.set.ingame:
+        default: op
+        description: Allow a player to set the in-game MOTD. (requires server.motd.set
+    server.motd.set.server:
+        default: op
+        description: Allow a player to set the server MOTD. (requires server.motd.set)
     server.motd.view:
-        description: view the motd
         default: true
+        description: Allow a player to view the MOTD.
+    server.ops:
+        default: true
+        description: Allow a player to see all the Operators of the server.
+    server.reply:
+        default: true
+        description: Give access to the reply command.
+    server.swear:
+        default: op
+        description: Give access to the swear command.
     server.swear.add:
-        description: add a swear
-        default: true
+        default: op
+        description: Allow a player to add a swear to the swear list.
     server.swear.disable:
-        description: disable swear protection
         default: op
+        description: Allow a player to disable swear protection.
     server.swear.enable:
-        description: enable swear protection
         default: op
+        description: Allow a player to enable swear protection.
     server.swear.reload:
-        description: reload swear list
         default: op
+        description: Allow a player to reload the swear list and swear protection.
     server.swear.remove:
-        description: remove a swear
         default: op
+        description: Allow a player to remove a swear from the swear list.
     server.whisper:
-        description: whisper to a friend
         default: true
+        description: Give access to the whisper command.
+    server.world:
+        default: op
+        description: Give access to the world command.
+    server.world.copy:
+        default: op
+        description: Allow a player to copy a world.
+    server.world.delete:
+        default: false
+        description: Allow a player to delete a world.
+    server.world.seed:
+        default: op
+        description: Allow a player to view the seed of a world.

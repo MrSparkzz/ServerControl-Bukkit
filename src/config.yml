@@ -1,19 +1,32 @@
-messages:
-    motd: '&2Welcome to my server!'
-    join: '&6{PLAYER} &bjoined the game'
-    quit: '&6{PLAYER} &bleft the game'
+admin_only:
+    enabled: false
+    kick_message: '&eServer is currently undergoing maintenance'
 
 # Messaging Modes: 0 = DEFAULT/ 1 = REPLACE/ 2 = WARN
-# leave warn blank to send no warning message
-messaging:
+# leave message blank to send no warning message
+chat:
     clean:
         enabled: false
         mode: 0
-        warn: '&cPlease do not swear!'
-    lower:
-        enabled: false
+        strict: false
+        warn:
+            enabled: true
+            message: '&cPlease do not swear!'
+    lowercase: false
 
-# format | swear (lowercase): replacement (case-insensitive)
+messages:
+    join: '&6[PLAYER] &bjoined the game'
+    quit: '&6[PLAYER] &bleft the game'
+
+motd:
+    ingame: '&2Welcome to my server!'
+    server: '&5Join this server!'
+
+players:
+    count: 0
+    id_base: 0
+
+# format | swear (lowercase):replacement (case-insensitive)
 swears:
     - poop:doo-doo
     - ass:butt

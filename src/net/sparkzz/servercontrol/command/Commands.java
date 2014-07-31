@@ -1,29 +1,34 @@
 package net.sparkzz.servercontrol.command;
 
-import net.sparkzz.command.Register;
+import net.sparkzz.servercontrol.commands.*;
 
+/**
+ * Created by Brendon on 7/16/2014.
+ */
 public class Commands {
-	
-	Register register = Register.getRegister();
-	
-	public void initCommands() {
+
+	private static Register register = Register.getRegister();
+
+	public static void initCommands() {
 		// general commands
-		register.initCommand("motd", new MOTDCommand());
 		register.initCommand("broadcast", new BroadcastCommand());
-		
+		register.initCommand("motd", new MOTDCommand());
+		register.initCommand("ops", new OpsCommand());
+
 		// moderation commands
 		register.initCommand("swear", new SwearCommand());
-		
+
 		// player manipulation commands
 		register.initCommand("gamemode", new GameModeCommand());
-		
-		// fun commands
 		register.initCommand("invsee", new InvseeCommand());
+
+		// communication commands
 		register.initCommand("message", new MessageCommand());
+		register.initCommand("reply", new ReplyCommand());
 		register.initCommand("whisper", new WhisperCommand());
-		
+
 		// server commands
 		register.initCommand("adminsonly", new AdminsOnlyCommand());
-		// wip: register.initCommand("world", new WorldCommand());
+		register.initCommand("world", new WorldCommand());
 	}
 }

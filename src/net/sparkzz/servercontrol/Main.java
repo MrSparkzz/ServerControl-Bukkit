@@ -4,57 +4,42 @@ import net.sparkzz.servercontrol.command.Commands;
 import net.sparkzz.servercontrol.event.ChatListener;
 import net.sparkzz.servercontrol.event.Events;
 import net.sparkzz.servercontrol.event.SwearListener;
-import net.sparkzz.util.FileManager;
-import net.sparkzz.util.LogHandler;
-
+import net.sparkzz.servercontrol.util.FileManager;
+import net.sparkzz.servercontrol.util.LogHandler;
+import net.sparkzz.servercontrol.util.Options;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-	LogHandler logger = LogHandler.getInstance();
-	SwearListener swear = SwearListener.getInstance();
-	Commands commands = new Commands();
-	Events events = new Events();
+	private static FileManager files = FileManager.getManager();
+	private static LogHandler logger = LogHandler.getLogger();
+	private Options option;
+	private PluginDescriptionFile pdFile = this.getDescription();
 
-	public static FileManager file = new FileManager();
-	
-	public static FileManager getManager() {
-		return file;
-	}
-	
 	@Override
 	public void onDisable() {
-		saveDefaultConfig();
-		
-		logger.info(this, "Disabled " + this.getName());
+		Events.unRegisterEvents();
+
+		logger.info("has been disabled");
 	}
-	
+
 	@Override
 	public void onEnable() {
-		commands.initCommands();
-		events.registerEvents(this);
-		
-		boolean swearProtect = this.getConfig().getBoolean("messaging.clean.enabled");
-		boolean toLower = this.getConfig().getBoolean("messaging.lower.enabled");
-		
-		if (swearProtect || (swearProtect && toLower)) {
-			Events.registerEvents(new SwearListener(), this);
-		} else if (toLower) {
-			Events.registerEvents(new ChatListener(), this);
-		}
-		
-		file.setup(this);
-		file.createYML(this, "players");
-		
-		if (this.getConfig().getBoolean("messaging.clean.enabled"))
-			swear.createSwearList();
-		
-		logger.info(this, "Enabled " + this.getName());
-	}
-	
-	static Main instance = new Main();
-	
-	public static Main getInstance() {
-		return instance;
+		files.setup(this);
+		files.createDataFile();
+		files.createPlayerConfig();
+
+		option.setupOptions();
+
+		Commands.initCommands();
+		Events.registerEvents(this);
+
+		if (option.getOption(Options.SWEAR_PROTECT))
+			Events.registerEvent(new SwearListener());
+
+		logger.info("Enabled " + pdFile.getName() + " v" + pdFile.getVersion() + " has been enabled");
 	}
 }
