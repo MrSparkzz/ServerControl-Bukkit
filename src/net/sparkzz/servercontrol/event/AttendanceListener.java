@@ -1,10 +1,8 @@
 package net.sparkzz.servercontrol.event;
 
 import net.sparkzz.servercontrol.players.User;
-import net.sparkzz.servercontrol.util.FileManager;
-import net.sparkzz.servercontrol.util.LogHandler;
-import net.sparkzz.servercontrol.util.MsgHandler;
-import net.sparkzz.servercontrol.util.Options;
+import net.sparkzz.servercontrol.util.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,13 +19,12 @@ import java.text.DecimalFormat;
  */
 public class AttendanceListener implements Listener {
 
+	private static Colorizer color = Colorizer.getColor();
 	private static FileManager files = FileManager.getManager();
 	private static LogHandler logger = LogHandler.getLogger();
 	private static MsgHandler msg = MsgHandler.getHandler();
 	private static Options options;
 	private static User user;
-
-	//TODO: setup join/leave messages
 
 	/*
 	 * when a player successfully joins the server
@@ -39,24 +36,34 @@ public class AttendanceListener implements Listener {
 
 		String playerUUID = user.getUUID().toString();
 
-		if (!player.hasPlayedBefore())
+		if (!player.hasPlayedBefore()) {
 			files.getConfig().set("players.count", files.getConfig().getInt("players.count") + 1);
+			files.saveConfig();
+		}
 
 		if (!files.getPlayerConfig().contains(playerUUID)) {
 			setupPlayerData(player);
+			files.savePlayers();
 		} else {
 			files.getPlayerConfig().set(playerUUID + ".previous_username", files.getPlayerConfig().get(playerUUID + "username"));
 			files.getPlayerConfig().set(playerUUID + ".username", player.getName());
 
 			int joins = files.getPlayerConfig().getInt(playerUUID + ".joins");
 
-			files.getPlayerConfig().set(playerUUID + ".joins", joins++);
+			files.getPlayerConfig().set(playerUUID + ".joins", joins + 1);
 			files.savePlayers();
 		}
 
-		files.savePlayers();
+		String motd = options.getMessage(Options.MOTD_INGAME),
+				joinMessage = options.getMessage(Options.JOIN_MESSAGE);
 
-		logger.info(user.getName() + "'s session ID is: " + user.getSessionID());
+		if (!joinMessage.equals("")) event.setJoinMessage(color.translateColorCodes(joinMessage.replace("[PLAYER]", player.getDisplayName())));
+		else event.setJoinMessage(null);
+
+		if (!motd.equals(""))
+			msg.send(player, motd.replaceAll("[SERVER]", Options.getMessage(Options.SERVER_NAME)));
+
+		//logger.info(user.getName() + "'s session ID is: " + user.getSessionID());
 	}
 
 	/*
@@ -76,7 +83,8 @@ public class AttendanceListener implements Listener {
 	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLeave(PlayerQuitEvent event) {
-		User user = User.getUser(event.getPlayer());
+		Player player = event.getPlayer();
+		User user = User.getUser(player);
 
 		Location location = event.getPlayer().getLocation();
 		String playerUUID = user.getUUID().toString();
@@ -89,6 +97,11 @@ public class AttendanceListener implements Listener {
 		files.getPlayerConfig().set(playerUUID + ".location.yaw", location.getY());
 
 		files.savePlayers();
+
+		String quitMessage = options.getMessage(Options.QUIT_MESSAGE);
+
+		if (!quitMessage.equals("")) event.setQuitMessage(color.translateColorCodes(quitMessage.replace("[PLAYER]", player.getDisplayName())));
+		else event.setQuitMessage(null); // TODO: it seems like sometimes the quit message is the default
 
 		user.deleteUser();
 	}

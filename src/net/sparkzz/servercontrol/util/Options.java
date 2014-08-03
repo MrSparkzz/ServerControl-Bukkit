@@ -9,9 +9,9 @@ import java.util.HashMap;
  */
 public enum Options {
 
-	ADMINS_ONLY, ADMINS_ONLY_KICK_MSG, LOWERCASE_CHAT, MOTD_INGAME,
-	MOTD_SERVER, SWEAR_PROTECT, SWEAR_PROTECT_MODE, SWEAR_PROTECT_STRICT,
-	SWEAR_WARN, SWEAR_WARNING;
+	ADMINS_ONLY, ADMINS_ONLY_KICK_MSG, JOIN_MESSAGE, LOWERCASE_CHAT,
+	MOTD_INGAME, MOTD_SERVER, QUIT_MESSAGE, SERVER_NAME, SWEAR_PROTECT,
+	SWEAR_PROTECT_MODE, SWEAR_PROTECT_STRICT, SWEAR_WARN, SWEAR_WARNING;
 
 	private static HashMap<Options, Boolean> options = new HashMap<Options, Boolean>();
 	private static HashMap<Options, Integer> values = new HashMap<Options, Integer>();
@@ -41,8 +41,11 @@ public enum Options {
 		options.put(SWEAR_WARN, config.getBoolean("chat.clean.warn.enabled"));
 
 		messages.put(ADMINS_ONLY_KICK_MSG, config.getString("admin_only.kick_message"));
+		messages.put(JOIN_MESSAGE, config.getString("messages.join"));
 		messages.put(MOTD_INGAME, config.getString("motd.ingame"));
 		messages.put(MOTD_SERVER, config.getString("motd.server"));
+		messages.put(QUIT_MESSAGE, config.getString("messages.quit"));
+		messages.put(SERVER_NAME, config.getString("server_name"));
 		messages.put(SWEAR_WARNING, config.getString("chat.clean.warn.message"));
 
 		values.put(SWEAR_PROTECT_MODE, config.getInt("chat.clean.mode"));

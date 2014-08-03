@@ -1,3 +1,5 @@
+server_name: 'Generic Server'
+
 admin_only:
     enabled: false
     kick_message: '&eServer is currently undergoing maintenance'
