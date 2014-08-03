@@ -1,40 +1,93 @@
 package net.sparkzz.servercontrol.players;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Brendon on 7/15/2014.
  */
-public class User {
+public class User extends UserData {
 
-	private static HashMap<Player, Player> lastMSG = new HashMap<Player, Player>();
-	private static List<Player> invsee = new ArrayList<Player>();
+	private boolean invsee = false;
+	private Player player, lastMSG;
+	private String name, nickname;
+	private UUID uuid;
 
-	public static void setInvsee(Player player, boolean value) {
-		if (value) invsee.add(player);
-		else invsee.remove(player);
+	public User(Player player) {
+		this.player = player;
+		name = player.getName();
+		uuid = player.getUniqueId();
+
+		users.add(this);
 	}
 
-	public static boolean isInvsee(Player player) {
-		if (invsee.contains(player)) return true;
+	public boolean hasLastMSG() {
+		if (lastMSG != null) return true;
 		else return false;
 	}
 
-	public static void setLastMSG(Player sender, Player target) {
-		lastMSG.put(target, sender);
+	public boolean isInvsee() {
+		return invsee;
 	}
 
-	public static boolean hasLastMSG(Player player) {
-		if (lastMSG.containsKey(player)) return true;
-		else return false;
+	public void setInvsee(boolean bool) {
+		invsee = bool;
 	}
 
-	public static Player getLastMSG(Player player) {
-		return lastMSG.get(player);
+	public String getName() {
+		return player.getName();
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public static User getUser(String name) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User user = users.get(i);
+				
+				if (user.getName().equalsIgnoreCase(name))
+					return user;
+			}
+		}
+		return null;
+	}
+	
+	public static User getUser(Player player) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User user = users.get(i);
+
+				if (user.getPlayer() == player)
+					return user;
+			}
+		}
+		return null;
+	}
+	
+	public static User getUser(UUID uuid) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User user = users.get(i);
+
+				if (user.getUUID() == uuid);
+					return user;
+			}
+		}
+		return null;
+	}
+
+	public UUID getUUID() {
+		return uuid;
+	}
+
+	public Player getLastMSG() {
+		return lastMSG;
+	}
+
+	public void setLastMSG(Player player) {
+		lastMSG = player;
 	}
 }

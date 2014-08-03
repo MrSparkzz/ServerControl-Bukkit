@@ -1,13 +1,11 @@
 package net.sparkzz.servercontrol.event;
 
-import net.sparkzz.servercontrol.Main;
 import net.sparkzz.servercontrol.players.User;
 import net.sparkzz.servercontrol.util.FileManager;
 import net.sparkzz.servercontrol.util.LogHandler;
 import net.sparkzz.servercontrol.util.MsgHandler;
 import net.sparkzz.servercontrol.util.Options;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,7 +15,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.text.DecimalFormat;
-import java.util.UUID;
 
 /**
  * Created by Brendon on 7/15/2014.
@@ -38,6 +35,8 @@ public class AttendanceListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		User user = new User(player);
+
 		String playerUUID = player.getUniqueId().toString();
 
 		if (!player.hasPlayedBefore())
@@ -75,8 +74,10 @@ public class AttendanceListener implements Listener {
 	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLeave(PlayerQuitEvent event) {
+		User user = User.getUser(event.getPlayer());
+
 		Location location = event.getPlayer().getLocation();
-		String playerUUID = event.getPlayer().getUniqueId().toString();
+		String playerUUID = user.getUUID().toString();
 
 		files.getPlayerConfig().set(playerUUID + ".location.world", location.getWorld().getName());
 		files.getPlayerConfig().set(playerUUID + ".location.x", location.getX());
@@ -87,7 +88,7 @@ public class AttendanceListener implements Listener {
 
 		files.savePlayers();
 
-		if (user.isInvsee(event.getPlayer())) user.setInvsee(event.getPlayer(), false);
+		if (user.isInvsee()) user.setInvsee(false);
 	}
 
 	private void setupPlayerData(Player player) {

@@ -11,8 +11,6 @@ import org.bukkit.entity.Player;
  */
 public class ReplyCommand extends CommandManager {
 
-	private User user;
-
 	public ReplyCommand() {
 		super("server.reply", "/reply [MESSAGE..]");
 	}
@@ -25,16 +23,18 @@ public class ReplyCommand extends CommandManager {
 		}
 
 		Player player = (Player) sender;
+		User user = User.getUser(player);
 
-		if (!user.hasLastMSG(player)) {
+		if (!user.hasLastMSG()) {
 			msg.send(player, msg.warn("There is no one to reply to."));
 			msg.send(player, msg.info("To send a message use /message"));
 			return true;
 		}
 
-		Player target = user.getLastMSG(player);
+		Player target = user.getLastMSG();
+		User targetUser = User.getUser(target);
 
-		if (target == null) {
+		if (targetUser == null) {
 			msg.send(player, msg.warn("The specified player: " + color.GOLD + target.getName() + color.RED + " could not be found!"));
 			return true;
 		}
@@ -43,7 +43,7 @@ public class ReplyCommand extends CommandManager {
 
 		msg.send(player, color.GREEN + "[Me -> " + color.GOLD + target.getDisplayName() + color.GREEN + "] " + color.RESET + message);
 		msg.send(target, color.GREEN + "[" + color.GOLD + player.getDisplayName() + color.GREEN + " -> Me] " + color.RESET + message);
-		user.setLastMSG(player, target);
+		targetUser.setLastMSG(player);
 		return false;
 	}
 }

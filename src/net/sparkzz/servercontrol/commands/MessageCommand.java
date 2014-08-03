@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
  */
 public class MessageCommand extends CommandManager {
 
-	private User user;
-
 	public MessageCommand() {
 		super("server.message", "/message [PLAYER] [MESSAGE..]");
 	}
@@ -26,8 +24,9 @@ public class MessageCommand extends CommandManager {
 		}
 
 		Player target = Bukkit.getPlayer(args[0]);
+		User targetUser = User.getUser(target);
 
-		if (target == null) {
+		if (targetUser == null) {
 			msg.noTarget(sender, args[0]);
 			return true;
 		}
@@ -40,7 +39,7 @@ public class MessageCommand extends CommandManager {
 			Player player = (Player) sender;
 
 			msg.send(target, color.GREEN + "[" + color.GOLD + ((Player) sender).getDisplayName() + color.GREEN + " -> Me] " + color.RESET + message);
-			user.setLastMSG(player, target);
+			targetUser.setLastMSG(player);
 			return true;
 		} else msg.send(target, color.GREEN + "[" + color.GOLD + "Console" + color.GREEN + " -> Me] " + color.RESET + message);
 		return true;
