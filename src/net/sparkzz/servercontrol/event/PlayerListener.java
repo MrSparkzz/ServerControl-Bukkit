@@ -18,13 +18,13 @@ import sun.org.mozilla.javascript.internal.ContextFactory;
  */
 public class PlayerListener implements Listener {
 
-	User user;
-
 	//TODO: More debugging in the invsee feature (works when both players are op, but wont work when one is op and one is not)
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (user.isInvsee((Player) event.getWhoClicked())) {
+		User user = User.getUser((Player) event.getWhoClicked());
+
+		if (user.isInvsee()) {
 			final Inventory top = event.getView().getTopInventory();
 			final InventoryType type = top.getType();
 
@@ -41,8 +41,10 @@ public class PlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onCloseInventory(InventoryCloseEvent event) {
-		if (user.isInvsee((Player) event.getPlayer())) {
-			user.setInvsee((Player) event.getPlayer(), false);
+		User user = User.getUser((Player) event.getPlayer());
+
+		if (user.isInvsee()) {
+			user.setInvsee(false);
 		}
 	}
 }

@@ -13,8 +13,6 @@ import org.bukkit.inventory.Inventory;
  */
 public class InvseeCommand extends CommandManager {
 
-	private User user;
-
 	public InvseeCommand() {
 		super("server.invsee", "/invsee [PLAYER]");
 	}
@@ -45,6 +43,7 @@ public class InvseeCommand extends CommandManager {
 
 		if (args.length == 1) {
 			Player player = (Player) sender;
+			User user = User.getUser(player);
 			Player target = Bukkit.getPlayer(args[0]);
 
 			if (target == null) {
@@ -56,7 +55,7 @@ public class InvseeCommand extends CommandManager {
 
 			player.closeInventory();
 			player.openInventory(inv);
-			user.setInvsee(player, true);
+			user.setInvsee(true);
 			return true;
 		}
 		return false;
