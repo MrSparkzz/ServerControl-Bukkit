@@ -83,6 +83,17 @@ public class User extends UserData {
 		return uuid;
 	}
 
+	public static void deleteUser(User user) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User userFromList = users.get(i);
+
+				if (userFromList == user);
+					users.remove(i);
+			}
+		}
+	}
+
 	public Player getLastMSG() {
 		return lastMSG;
 	}

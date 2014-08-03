@@ -37,7 +37,7 @@ public class AttendanceListener implements Listener {
 		Player player = event.getPlayer();
 		User user = new User(player);
 
-		String playerUUID = player.getUniqueId().toString();
+		String playerUUID = user.getUUID().toString();
 
 		if (!player.hasPlayedBefore())
 			files.getConfig().set("players.count", files.getConfig().getInt("players.count") + 1);
@@ -88,7 +88,7 @@ public class AttendanceListener implements Listener {
 
 		files.savePlayers();
 
-		if (user.isInvsee()) user.setInvsee(false);
+		User.deleteUser(user);
 	}
 
 	private void setupPlayerData(Player player) {
