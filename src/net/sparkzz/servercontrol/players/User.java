@@ -1,5 +1,6 @@
 package net.sparkzz.servercontrol.players;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -14,6 +15,7 @@ public class User extends UserData {
 	private String name, nickname;
 	private UUID uuid;
 
+	// TODO: Create session ids (based off instance number)
 	public User(Player player) {
 		this.player = player;
 		name = player.getName();
@@ -41,6 +43,12 @@ public class User extends UserData {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public static void rebuild() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			new User(player);
+		}
 	}
 
 	public static User getUser(String name) {

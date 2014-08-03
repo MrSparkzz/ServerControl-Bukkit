@@ -4,6 +4,7 @@ import net.sparkzz.servercontrol.command.Commands;
 import net.sparkzz.servercontrol.event.ChatListener;
 import net.sparkzz.servercontrol.event.Events;
 import net.sparkzz.servercontrol.event.SwearListener;
+import net.sparkzz.servercontrol.players.User;
 import net.sparkzz.servercontrol.util.FileManager;
 import net.sparkzz.servercontrol.util.LogHandler;
 import net.sparkzz.servercontrol.util.Options;
@@ -39,6 +40,9 @@ public class Main extends JavaPlugin {
 
 		if (option.getOption(Options.SWEAR_PROTECT))
 			Events.registerEvent(new SwearListener());
+
+		if (Bukkit.getOnlinePlayers().length > 0)
+			User.rebuild();
 
 		logger.info("Enabled " + pdFile.getName() + " v" + pdFile.getVersion() + " has been enabled");
 	}
