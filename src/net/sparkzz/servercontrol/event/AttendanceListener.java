@@ -55,6 +55,8 @@ public class AttendanceListener implements Listener {
 		}
 
 		files.savePlayers();
+
+		logger.info(user.getName() + "'s session ID is: " + user.getSessionID());
 	}
 
 	/*
@@ -88,7 +90,7 @@ public class AttendanceListener implements Listener {
 
 		files.savePlayers();
 
-		User.deleteUser(user);
+		user.deleteUser();
 	}
 
 	private void setupPlayerData(Player player) {

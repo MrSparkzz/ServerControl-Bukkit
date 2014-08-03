@@ -24,6 +24,48 @@ public class User extends UserData {
 		users.add(this);
 	}
 
+	public static void rebuild() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			new User(player);
+		}
+	}
+
+	public static User getUser(String name) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User user = users.get(i);
+
+				if (user.getName().equalsIgnoreCase(name))
+					return user;
+			}
+		}
+		return null;
+	}
+
+	public static User getUser(Player player) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User user = users.get(i);
+
+				if (user.getPlayer() == player)
+					return user;
+			}
+		}
+		return null;
+	}
+
+	public static User getUser(UUID uuid) {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User user = users.get(i);
+
+				if (user.getUUID() == uuid);
+				return user;
+			}
+		}
+		return null;
+	}
+
 	public boolean hasLastMSG() {
 		if (lastMSG != null) return true;
 		else return false;
@@ -31,6 +73,18 @@ public class User extends UserData {
 
 	public boolean isInvsee() {
 		return invsee;
+	}
+
+	public int getSessionID() {
+		if (users.size() > 0) {
+			for (int i = 0; i < users.size(); i++) {
+				User userFromList = users.get(i);
+
+				if (userFromList == this);
+					return i += 1; // always returns 1 for some reason.
+			}
+		}
+		return 0;
 	}
 
 	public void setInvsee(boolean bool) {
@@ -45,58 +99,16 @@ public class User extends UserData {
 		return player;
 	}
 
-	public static void rebuild() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			new User(player);
-		}
-	}
-
-	public static User getUser(String name) {
-		if (users.size() > 0) {
-			for (int i = 0; i < users.size(); i++) {
-				User user = users.get(i);
-				
-				if (user.getName().equalsIgnoreCase(name))
-					return user;
-			}
-		}
-		return null;
-	}
-	
-	public static User getUser(Player player) {
-		if (users.size() > 0) {
-			for (int i = 0; i < users.size(); i++) {
-				User user = users.get(i);
-
-				if (user.getPlayer() == player)
-					return user;
-			}
-		}
-		return null;
-	}
-	
-	public static User getUser(UUID uuid) {
-		if (users.size() > 0) {
-			for (int i = 0; i < users.size(); i++) {
-				User user = users.get(i);
-
-				if (user.getUUID() == uuid);
-					return user;
-			}
-		}
-		return null;
-	}
-
 	public UUID getUUID() {
 		return uuid;
 	}
 
-	public static void deleteUser(User user) {
+	public void deleteUser() {
 		if (users.size() > 0) {
 			for (int i = 0; i < users.size(); i++) {
 				User userFromList = users.get(i);
 
-				if (userFromList == user);
+				if (userFromList == this);
 					users.remove(i);
 			}
 		}
