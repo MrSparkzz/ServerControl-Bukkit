@@ -5,7 +5,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 /**
  * Created by Brendon on 7/3/2014.

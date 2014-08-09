@@ -1,7 +1,5 @@
 package net.sparkzz.servercontrol.util;
 
-import net.sparkzz.servercontrol.Main;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

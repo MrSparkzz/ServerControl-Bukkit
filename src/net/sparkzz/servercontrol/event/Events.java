@@ -1,6 +1,5 @@
 package net.sparkzz.servercontrol.event;
 
-import net.sparkzz.servercontrol.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;

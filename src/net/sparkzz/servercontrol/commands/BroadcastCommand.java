@@ -2,7 +2,6 @@ package net.sparkzz.servercontrol.commands;
 
 import net.sparkzz.servercontrol.command.CommandManager;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 /**

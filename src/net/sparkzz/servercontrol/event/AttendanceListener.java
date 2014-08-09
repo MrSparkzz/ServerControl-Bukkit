@@ -2,7 +2,6 @@ package net.sparkzz.servercontrol.event;
 
 import net.sparkzz.servercontrol.players.User;
 import net.sparkzz.servercontrol.util.*;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

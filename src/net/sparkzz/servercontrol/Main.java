@@ -1,7 +1,6 @@
 package net.sparkzz.servercontrol;
 
 import net.sparkzz.servercontrol.command.Commands;
-import net.sparkzz.servercontrol.event.ChatListener;
 import net.sparkzz.servercontrol.event.Events;
 import net.sparkzz.servercontrol.event.SwearListener;
 import net.sparkzz.servercontrol.players.User;
@@ -10,7 +9,6 @@ import net.sparkzz.servercontrol.util.FileManager;
 import net.sparkzz.servercontrol.util.LogHandler;
 import net.sparkzz.servercontrol.util.Options;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 

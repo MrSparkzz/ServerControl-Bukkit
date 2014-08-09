@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import sun.org.mozilla.javascript.internal.ContextFactory;
 
 /**
  * Created by Brendon on 7/16/2014.

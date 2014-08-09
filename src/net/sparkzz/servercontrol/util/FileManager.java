@@ -1,14 +1,11 @@
 package net.sparkzz.servercontrol.util;
 
-import net.sparkzz.servercontrol.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * Created by Brendon on 7/3/2014.
