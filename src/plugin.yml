@@ -40,6 +40,9 @@ permissions:
     server.adminsonly.bypass:
         default: op
         description: Allow a player bypass the Admins Only lock.
+    server.adminsonly.bypass.chat:
+        default: op
+        description: Allow a player to chat if Admins Only chat is enabled.
     server.broadcast:
         default: op
         description: Give access to the broadcast command.

@@ -22,7 +22,7 @@ public class ChatListener implements Listener {
 		}
 
 		if (options.getOption(Options.ADMINS_ONLY_CHAT)) {
-			if (!event.getPlayer().isOp())
+			if (!event.getPlayer().isOp() || !event.getPlayer().hasPermission(""))
 				event.setCancelled(true);
 		}
 	}
