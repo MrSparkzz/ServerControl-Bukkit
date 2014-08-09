@@ -106,12 +106,18 @@ permissions:
     server.swear.enable:
         default: op
         description: Allow a player to enable swear protection.
+    server.swear.mode:
+        default: op
+        description: Allow a player to change the swear mode.
     server.swear.reload:
         default: op
         description: Allow a player to reload the swear list and swear protection.
     server.swear.remove:
         default: op
         description: Allow a player to remove a swear from the swear list.
+    server.swear.save:
+        default: op
+        description: Allow a player to save the swears to the config.
     server.whisper:
         default: true
         description: Give access to the whisper command.

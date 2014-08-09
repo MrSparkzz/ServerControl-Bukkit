@@ -20,7 +20,7 @@ public class SwearCommand extends CommandManager {
 		super("server.swear", "/swear <add/remove/enable/disable/save/reload> <swear/replacement/[SWEAR]> [SWEAR/REPLACEMENT] [SWEAR]");
 	}
 
-	//TODO: add the ability to change modes in game | implement /swear save command (saves to config) | possibly make a new custom config for swears
+	//TODO: add the ability to change modes in game | possibly make a new custom config for swears
 
 	@Override
 	public boolean command(CommandSender sender, Command command, String[] args) {
@@ -71,6 +71,16 @@ public class SwearCommand extends CommandManager {
 				return true;
 			}
 
+			if (args[0].equalsIgnoreCase("mode")) {
+				if (!sender.hasPermission("server.swear.mode")) {
+					msg.deny(sender);
+					return true;
+				}
+
+				msg.args(sender, -1);
+				return false;
+			}
+
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (!sender.hasPermission("server.swear.reload")) {
 					msg.deny(sender);
@@ -96,6 +106,17 @@ public class SwearCommand extends CommandManager {
 
 				msg.args(sender, -1);
 				return false;
+			}
+
+			if (args[0].equalsIgnoreCase("save")) {
+				if (!sender.hasPermission("server.swear.save")) {
+					msg.deny(sender);
+					return true;
+				}
+
+				files.getConfig().set("swears", swear.getSwearList());
+				msg.send(sender, color.CYAN + "Swears successfully saved to file!");
+				return true;
 			}
 		}
 
@@ -142,6 +163,48 @@ public class SwearCommand extends CommandManager {
 					}
 
 					return true;
+				}
+			}
+
+			if (args[0].equalsIgnoreCase("mode")) {
+				if (!sender.hasPermission("server.swear.mode")) {
+					msg.deny(sender);
+					return true;
+				}
+
+				if (args.length == 2) {
+					if (args[1].equalsIgnoreCase("0")) {
+						if (swear.getMode() == 0) {
+							msg.send(sender, msg.warn("The swear mode is already set to 0"));
+							return true;
+						}
+
+						swear.setMode(0);
+						msg.send(sender, color.GREEN + "The swear mode has been set to 0");
+						return true;
+					}
+
+					if (args[1].equalsIgnoreCase("1")) {
+						if (swear.getMode() == 1) {
+							msg.send(sender, msg.warn("The swear mode is already set to 1"));
+							return true;
+						}
+
+						swear.setMode(1);
+						msg.send(sender, color.GREEN + "The swear mode has been set to 1");
+						return true;
+					}
+
+					if (args[1].equalsIgnoreCase("2")) {
+						if (swear.getMode() == 2) {
+							msg.send(sender, msg.warn("The swear mode is already set to 2"));
+							return true;
+						}
+
+						swear.setMode(2);
+						msg.send(sender, color.GREEN + "The swear mode has been set to 2");
+						return true;
+ 					}
 				}
 			}
 

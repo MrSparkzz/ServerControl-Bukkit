@@ -10,10 +10,10 @@ import org.bukkit.command.CommandSender;
  */
 public abstract class CommandManager implements CommandExecutor {
 
-	public Colorizer color = Colorizer.getColor();
-	public FileManager files = FileManager.getManager();
-	public LogHandler logger = LogHandler.getLogger();
-	public MsgHandler msg = MsgHandler.getHandler();
+	public Colorizer color;
+	public FileManager files;
+	public LogHandler logger;
+	public MsgHandler msg;
 	public Options options;
 
 	private String permission, usage;

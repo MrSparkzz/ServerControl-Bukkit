@@ -5,6 +5,7 @@ import net.sparkzz.servercontrol.event.ChatListener;
 import net.sparkzz.servercontrol.event.Events;
 import net.sparkzz.servercontrol.event.SwearListener;
 import net.sparkzz.servercontrol.players.User;
+import net.sparkzz.servercontrol.players.UserData;
 import net.sparkzz.servercontrol.util.FileManager;
 import net.sparkzz.servercontrol.util.LogHandler;
 import net.sparkzz.servercontrol.util.Options;
@@ -15,8 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-	private static FileManager files = FileManager.getManager();
-	private static LogHandler logger = LogHandler.getLogger();
+	private static FileManager files;
+	private static LogHandler logger;
 	private Options option;
 	private PluginDescriptionFile pdFile = this.getDescription();
 
@@ -24,7 +25,9 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		Events.unRegisterEvents();
 
-		logger.info("has been disabled");
+		UserData.users = null;
+
+		logger.info(pdFile.getName() + " v" + pdFile.getVersion() + " has been disabled");
 	}
 
 	@Override
@@ -44,6 +47,6 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getOnlinePlayers().length > 0)
 			User.rebuild();
 
-		logger.info("Enabled " + pdFile.getName() + " v" + pdFile.getVersion() + " has been enabled");
+		logger.info(pdFile.getName() + " v" + pdFile.getVersion() + " has been enabled");
 	}
 }

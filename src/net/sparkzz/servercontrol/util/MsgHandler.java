@@ -10,15 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Brendon on 7/3/2014.
  */
-public class MsgHandler {
-
-	private static MsgHandler instance = new MsgHandler();
-
-	private Colorizer color = Colorizer.getColor();
-
-	public static MsgHandler getHandler() {
-		return instance;
-	}
+public class MsgHandler extends Utility{
 
 	public String buildString(int start, String[] args) {
 		StringBuilder str = new StringBuilder();

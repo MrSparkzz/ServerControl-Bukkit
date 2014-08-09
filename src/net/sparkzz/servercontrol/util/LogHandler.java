@@ -9,13 +9,7 @@ import java.util.logging.Logger;
  * Created by Brendon on 7/4/2014.
  */
 public class LogHandler {
-
-	private static LogHandler instance = new LogHandler();
 	private Logger logger = Logger.getLogger("Minecraft");
-
-	public static LogHandler getLogger() {
-		return instance;
-	}
 
 	public void log(Level level, String message) {
 		logger.log(level, "[ServerControl] " + message);

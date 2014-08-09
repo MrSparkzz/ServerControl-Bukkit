@@ -21,6 +21,9 @@ public class ChatListener implements Listener {
 			event.setMessage(message);
 		}
 
-		// TODO: add admin only chat support
+		if (options.getOption(Options.ADMINS_ONLY_CHAT)) {
+			if (!event.getPlayer().isOp())
+				event.setCancelled(true);
+		}
 	}
 }

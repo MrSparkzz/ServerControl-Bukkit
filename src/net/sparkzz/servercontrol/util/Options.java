@@ -9,15 +9,16 @@ import java.util.HashMap;
  */
 public enum Options {
 
-	ADMINS_ONLY, ADMINS_ONLY_KICK_MSG, JOIN_MESSAGE, LOWERCASE_CHAT,
-	MOTD_INGAME, MOTD_SERVER, QUIT_MESSAGE, SERVER_NAME, SWEAR_PROTECT,
-	SWEAR_PROTECT_MODE, SWEAR_PROTECT_STRICT, SWEAR_WARN, SWEAR_WARNING;
+	ADMINS_ONLY, ADMINS_ONLY_CHAT, ADMINS_ONLY_CHAT_DEFAULT, ADMINS_ONLY_KICK,
+	ADMINS_ONLY_KICK_MSG, JOIN_MESSAGE, LOWERCASE_CHAT, MOTD_INGAME, MOTD_SERVER,
+	QUIT_MESSAGE, SERVER_NAME, SWEAR_PROTECT, SWEAR_PROTECT_MODE, SWEAR_PROTECT_STRICT,
+	SWEAR_WARN, SWEAR_WARNING;
 
 	private static HashMap<Options, Boolean> options = new HashMap<Options, Boolean>();
 	private static HashMap<Options, Integer> values = new HashMap<Options, Integer>();
 	private static HashMap<Options, String> messages = new HashMap<Options, String>();
 
-	private static FileManager files = FileManager.getManager();
+	private static FileManager files;
 	private static FileConfiguration config = files.getConfig();
 	private static FileConfiguration data = files.getData();
 
@@ -35,6 +36,9 @@ public enum Options {
 
 	public static void setupOptions() {
 		options.put(ADMINS_ONLY, config.getBoolean("admins_only.enabled"));
+		options.put(ADMINS_ONLY_CHAT, config.getBoolean("admins_only.chat.enabled"));
+		options.put(ADMINS_ONLY_CHAT_DEFAULT, config.getBoolean("admins_only.chat.default"));
+		options.put(ADMINS_ONLY_KICK, config.getBoolean("admins_only.kick"));
 		options.put(LOWERCASE_CHAT, config.getBoolean("chat.lowercase"));
 		options.put(SWEAR_PROTECT, config.getBoolean("chat.clean.enabled"));
 		options.put(SWEAR_PROTECT_STRICT, config.getBoolean("chat.clean.strict"));

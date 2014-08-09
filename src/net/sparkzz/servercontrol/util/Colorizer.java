@@ -7,12 +7,6 @@ import org.bukkit.ChatColor;
  */
 public class Colorizer {
 
-	private static Colorizer instance = new Colorizer();
-
-	public static Colorizer getColor() {
-		return instance;
-	}
-
 	//  colors
 	public ChatColor
 		BLACK = ChatColor.BLACK,

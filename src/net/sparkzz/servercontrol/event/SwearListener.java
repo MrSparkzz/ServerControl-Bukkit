@@ -23,9 +23,10 @@ public class SwearListener implements Listener {
 
 	private static HashMap<String, String> swearlist = new HashMap<String, String>();
 	private static SwearListener instance = new SwearListener();
-	private FileManager files = FileManager.getManager();
+	private FileManager files;
 	private Options option;
-	private MsgHandler msg = MsgHandler.getHandler();
+	private MsgHandler msg;
+	private int mode = option.getValue(Options.SWEAR_PROTECT_MODE);
 
 	public static SwearListener getInstance() {
 		return instance;
@@ -66,7 +67,6 @@ public class SwearListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onSwear(AsyncPlayerChatEvent event) {
-		final int mode = option.getValue(Options.SWEAR_PROTECT_MODE);
 		final boolean strict = option.getOption(Options.SWEAR_PROTECT_STRICT);
 
 		boolean lowercase = option.getOption(Options.LOWERCASE_CHAT), swore = false,
@@ -82,10 +82,10 @@ public class SwearListener implements Listener {
 		switch (mode) {
 			case 1:
 				for (int i = 0; i < args.length; i++) {
-					String noSpec = args[i].replaceAll("[^a-zA-Z0-9]", "");
+					String noSpec = args[i].replaceAll("[(,.?!\'\")^a-zA-Z0-9]", "");
 
 					if (swearlist.containsKey(noSpec.toLowerCase())) {
-						args[i] = swearlist.get(args[i].toLowerCase());
+						args[i] = swearlist.get(args[i].replaceAll("[^a-zA-Z0-9]", "").toLowerCase());
 						swore = true;
 					}
 
@@ -95,17 +95,18 @@ public class SwearListener implements Listener {
 				if (lowercase)
 					clean.toLowerCase();
 
-				event.setMessage(clean);
+				if (swore) {
+					if (warn && !warning.equals(""))
+						msg.send(event.getPlayer(), warning);
 
-				if (swore && warn && !warning.equals(""))
-					msg.send(event.getPlayer(), warning);
-
+					event.setMessage(clean);
+				}
 				break;
 			case 2:
 				for (int i = 0; i < args.length; i++) {
-					String noSpec = args[i].replaceAll("[^a-zA-Z0-9]", "");
+					String noSpec = args[i].replaceAll("[(,.?!\'\")^a-zA-Z0-9]", "");
 
-					if (swearlist.containsKey(noSpec.toLowerCase()))
+					if (swearlist.containsKey(noSpec.replaceAll("[^a-zA-Z0-9]", "").toLowerCase()))
 						swore = true;
 				}
 
@@ -115,13 +116,12 @@ public class SwearListener implements Listener {
 
 					event.setCancelled(true);
 				}
-
 				break;
 			default:
 				for (int i = 0; i < args.length; i++) {
-					String noSpec = args[i].replaceAll("[^a-zA-Z0-9]", "");
+					String noSpec = args[i].replaceAll("[(,.?!\'\")^a-zA-Z0-9]", "");
 
-					if (swearlist.containsKey(noSpec.toLowerCase())) {
+					if (swearlist.containsKey(noSpec.replaceAll("[^a-zA-Z0-9]", "").toLowerCase())) {
 						String replacement = "";
 
 						for (int j = 0; j < noSpec.length(); j++) {
@@ -135,10 +135,12 @@ public class SwearListener implements Listener {
 
 				if (lowercase) clean.toLowerCase();
 
-				event.setMessage(clean);
+				if (swore) {
+					if (swore && warn && !warning.equals(""))
+						msg.send(event.getPlayer(), warning);
 
-				if (swore && warn && !warning.equals(""))
-					msg.send(event.getPlayer(), warning);
+					event.setMessage(clean);
+				}
 				break;
 		}
 	}
@@ -155,5 +157,13 @@ public class SwearListener implements Listener {
 		}
 
 		return swears;
+	}
+
+	public int getMode() {
+		return this.mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
 	}
 }

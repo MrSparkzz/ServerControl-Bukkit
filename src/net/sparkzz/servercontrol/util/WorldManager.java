@@ -12,13 +12,7 @@ import java.util.Arrays;
  * Created by ThunderWaffleMC
  * Modified by Brendon on 7/16/2014.
  */
-public class WorldManager {
-
-	private static WorldManager worlds = new WorldManager();
-
-	public static WorldManager getWorlds() {
-		return worlds;
-	}
+public class WorldManager extends Utility {
 
 	public boolean isWorld(World world) {
 		if (!world.equals(null)) return true;

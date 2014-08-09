@@ -2,6 +2,9 @@ server_name: 'Generic Server'
 
 admin_only:
     enabled: false
+    kick:
+        enabled: false
+        default: true
     kick_message: '&eServer is currently undergoing maintenance'
 
 # Messaging Modes: 0 = DEFAULT/ 1 = REPLACE/ 2 = WARN

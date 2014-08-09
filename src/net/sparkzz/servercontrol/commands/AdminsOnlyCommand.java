@@ -15,7 +15,8 @@ public class AdminsOnlyCommand extends CommandManager {
 		super("server.adminsonly", "/adminsonly");
 	}
 
-	private boolean ao = options.getOption(Options.ADMINS_ONLY);
+	private boolean ao = options.getOption(Options.ADMINS_ONLY),
+				aoChat = options.getOption(Options.ADMINS_ONLY_CHAT_DEFAULT);
 
 	public void setAo() {
 		if (ao) setAo(false);
@@ -38,6 +39,11 @@ public class AdminsOnlyCommand extends CommandManager {
 
 		if (ao) msg.send(sender, msg.warn("Admins only at this time! Players without permission will not be able to join!"));
 		else msg.send(sender, color.GREEN + "Anyone can join now!");
+
+		if (aoChat) {
+			options.setOption(Options.ADMINS_ONLY_CHAT, true);
+			msg.send(sender, msg.warn("Admins only chat! Players without permission will not be able to talk!"));
+		}
 
 		return true;
 	}

@@ -19,10 +19,10 @@ import java.text.DecimalFormat;
  */
 public class AttendanceListener implements Listener {
 
-	private static Colorizer color = Colorizer.getColor();
-	private static FileManager files = FileManager.getManager();
-	private static LogHandler logger = LogHandler.getLogger();
-	private static MsgHandler msg = MsgHandler.getHandler();
+	private static Colorizer color;
+	private static FileManager files;
+	private static LogHandler logger;
+	private static MsgHandler msg;
 	private static Options options;
 	private static User user;
 
@@ -61,7 +61,7 @@ public class AttendanceListener implements Listener {
 		else event.setJoinMessage(null);
 
 		if (!motd.equals(""))
-			msg.send(player, motd.replaceAll("[SERVER]", Options.getMessage(Options.SERVER_NAME)));
+			msg.send(player, motd.replace("[SERVER]", Options.getMessage(Options.SERVER_NAME)));
 
 		//logger.info(user.getName() + "'s session ID is: " + user.getSessionID());
 	}
@@ -100,8 +100,8 @@ public class AttendanceListener implements Listener {
 
 		String quitMessage = options.getMessage(Options.QUIT_MESSAGE);
 
-		if (!quitMessage.equals("")) event.setQuitMessage(color.translateColorCodes(quitMessage.replace("[PLAYER]", player.getDisplayName())));
-		else event.setQuitMessage(null); // TODO: it seems like sometimes the quit message is the default
+		if (!quitMessage.equals("")) event.setQuitMessage(color.translateColorCodes(quitMessage.replace("[PLAYER]", player.getDisplayName()))); // TODO: it seems like sometimes the quit message is the default
+		else event.setQuitMessage(null);
 
 		user.deleteUser();
 	}

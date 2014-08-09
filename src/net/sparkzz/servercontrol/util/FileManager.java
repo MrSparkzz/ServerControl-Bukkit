@@ -13,10 +13,8 @@ import java.nio.file.Path;
 /**
  * Created by Brendon on 7/3/2014.
  */
-public class FileManager {
+public class FileManager extends Utility {
 
-	private static FileManager manager = new FileManager();
-	private static LogHandler logger = LogHandler.getLogger();
 	private Plugin plugin = null;
 
 	private File configFile, dataFile, playerFile, dataFolder;
@@ -116,9 +114,5 @@ public class FileManager {
 
 	public FileConfiguration getPlayerConfig() {
 		return players;
-	}
-
-	public static FileManager getManager() {
-		return manager;
 	}
 }
